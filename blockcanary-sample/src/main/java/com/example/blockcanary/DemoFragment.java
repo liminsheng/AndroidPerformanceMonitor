@@ -15,6 +15,7 @@
  */
 package com.example.blockcanary;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -81,7 +82,9 @@ public class DemoFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.button2:
                 for (int i = 0; i < 100; ++i) {
-                    readFile();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        readFile();
+                    }
                 }
                 break;
             case R.id.button3:

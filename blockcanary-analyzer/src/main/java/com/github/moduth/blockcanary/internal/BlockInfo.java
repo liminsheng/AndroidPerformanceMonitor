@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Build.VERSION;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.github.moduth.blockcanary.BlockCanaryInternals;
@@ -66,11 +65,6 @@ public class BlockInfo {
     public static String sQualifier;
     public static String sModel;
     public static String sApiLevel = "";
-    /**
-     * The International Mobile Equipment Identity or IMEI /aɪˈmiː/ is a number,
-     * usually unique, to identify 3GPP and iDEN mobile phones
-     */
-    public static String sImei = "";
     public static int sCpuCoreNum = -1;
 
     public String qualifier;
@@ -99,23 +93,12 @@ public class BlockInfo {
     private StringBuilder cpuSb = new StringBuilder();
     private StringBuilder timeSb = new StringBuilder();
     private StringBuilder stackSb = new StringBuilder();
-    private static final String EMPTY_IMEI = "empty_imei";
 
     static {
         sCpuCoreNum = PerformanceUtils.getNumCores();
         sModel = Build.MODEL;
         sApiLevel = Build.VERSION.SDK_INT + " " + VERSION.RELEASE;
         sQualifier = BlockCanaryInternals.getContext().provideQualifier();
-        try {
-            TelephonyManager telephonyManager = (TelephonyManager) BlockCanaryInternals
-                    .getContext()
-                    .provideContext()
-                    .getSystemService(Context.TELEPHONY_SERVICE);
-            sImei = telephonyManager.getDeviceId();
-        } catch (Exception exception) {
-            Log.e(TAG, NEW_INSTANCE_METHOD, exception);
-            sImei = EMPTY_IMEI;
-        }
     }
 
     public BlockInfo() {
@@ -138,7 +121,6 @@ public class BlockInfo {
         blockInfo.model = sModel;
         blockInfo.apiLevel = sApiLevel;
         blockInfo.qualifier = sQualifier;
-        blockInfo.imei = sImei;
         blockInfo.uid = BlockCanaryInternals.getContext().provideUid();
         blockInfo.processName = ProcessUtils.myProcessName();
         blockInfo.network = BlockCanaryInternals.getContext().provideNetworkType();
