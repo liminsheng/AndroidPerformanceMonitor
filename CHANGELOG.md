@@ -2,6 +2,10 @@
 
 You can watch releases [on Maven](https://oss.sonatype.org/content/groups/public/com/github/markzhai/).
 
+## Version 2.0 *(2021-11-4)*
+
+Adapt Android O, remove CPU sampling, remove IMEI acquisition.
+
 ## Version 1.5 *(2017-02-26)*
 
 Debug mode stop monitor.

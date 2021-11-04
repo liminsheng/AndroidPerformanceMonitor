@@ -5,6 +5,7 @@ BlockCanary是一个Android平台的一个非侵入式的性能监控组件，�
 
 取名为BlockCanary则是为了向LeakCanary致敬，顺便本库的UI部分是从LeakCanary改来的，之后可能会做一些调整。
 
+- 2.0.0 适配Android O，移除cpu采样，移除IMEI获取。
 - 1.5.0 Context 中增加 Debug 时不监控选项。
 - 1.4.1 Bug修复
 - 1.4.0 修复 1.3.x 的 bug，增加发生卡慢时的拦截方法。
@@ -24,11 +25,11 @@ BlockCanary是一个Android平台的一个非侵入式的性能监控组件，�
 
 ```gradle
 dependencies {
-    compile 'com.github.markzhai:blockcanary-android:1.5.0'
+    compile 'com.github.markzhai:blockcanary-android:2.0.0'
 
     // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
-    debugCompile 'com.github.markzhai:blockcanary-android:1.5.0'
-    releaseCompile 'com.github.markzhai:blockcanary-no-op:1.5.0'
+    debugCompile 'com.github.markzhai:blockcanary-android:2.0.0'
+    releaseCompile 'com.github.markzhai:blockcanary-no-op:2.0.0'
 }
 ```
 
