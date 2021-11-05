@@ -25,11 +25,12 @@ BlockCanary是一个Android平台的一个非侵入式的性能监控组件，�
 
 ```gradle
 dependencies {
-    compile 'com.github.markzhai:blockcanary-android:2.0.0'
+    // most often used way, enable notification to notify block event
+    implementation 'com.github.liminsheng.AndroidPerformanceMonitor:blockcanary-android:2.0.0'
 
-    // 仅在debug包启用BlockCanary进行卡顿监控和提示的话，可以这么用
-    debugCompile 'com.github.markzhai:blockcanary-android:2.0.0'
-    releaseCompile 'com.github.markzhai:blockcanary-no-op:2.0.0'
+    // this way you only enable BlockCanary in debug package
+    // debugImplementation 'com.github.liminsheng.AndroidPerformanceMonitor:blockcanary-android:2.0.0'
+    // releaseImplementation 'liminsheng.AndroidPerformanceMonitor:blockcanary-android-no-op:2.0.0'
 }
 ```
 

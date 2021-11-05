@@ -19,11 +19,11 @@ You may choose how to assemble them as you like.
 ```gradle
 dependencies {
     // most often used way, enable notification to notify block event
-    compile 'com.github.markzhai:blockcanary-android:2.0.0'
+    implementation 'com.github.liminsheng.AndroidPerformanceMonitor:blockcanary-android:2.0.0'
 
     // this way you only enable BlockCanary in debug package
-    // debugCompile 'com.github.markzhai:blockcanary-android:2.0.0'
-    // releaseCompile 'com.github.markzhai:blockcanary-no-op:2.0.0'
+    // debugImplementation 'com.github.liminsheng.AndroidPerformanceMonitor:blockcanary-android:2.0.0'
+    // releaseImplementation 'liminsheng.AndroidPerformanceMonitor:blockcanary-android-no-op:2.0.0'
 }
 ```
 
