@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -205,7 +206,16 @@ public class DisplayActivity extends Activity {
         }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("application/octet-stream");
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(heapDumpFile));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(this,
+                    getApplicationContext().getPackageName() + ".fileprovider",
+                    heapDumpFile);
+            intent.putExtra(Intent.EXTRA_STREAM, contentUri);
+        } else {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(heapDumpFile));
+        }
         startActivity(Intent.createChooser(intent, getString(R.string.block_canary_share_with)));
     }
 
@@ -309,7 +319,7 @@ public class DisplayActivity extends Activity {
             }
         });
         adapter.update(blockInfo);
-        setTitle(getString(R.string.block_canary_class_has_blocked, blockInfo.timeCost));
+        setTitle(getString(R.string.block_canary_class_has_blocked, String.valueOf(blockInfo.timeCost)));
     }
 
     private BlockInfoEx getBlock(String startTime) {
@@ -360,7 +370,7 @@ public class DisplayActivity extends Activity {
 
             String keyStackString = BlockCanaryUtils.concernStackString(blockInfo);
             String title = index + keyStackString + " " +
-                    getString(R.string.block_canary_class_has_blocked, blockInfo.timeCost);
+                    getString(R.string.block_canary_class_has_blocked, String.valueOf(blockInfo.timeCost));
             titleView.setText(title);
             String time = DateUtils.formatDateTime(DisplayActivity.this,
                     blockInfo.logFile.lastModified(), FORMAT_SHOW_TIME | FORMAT_SHOW_DATE);
